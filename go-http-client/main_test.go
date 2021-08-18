@@ -1,0 +1,45 @@
+package main
+
+import (
+	"errors"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
+	"testing"
+)
+
+type mockedHttpClient struct {
+	mock.Mock
+}
+
+func (m *mockedHttpClient) Get(url string) (string, error) {
+	args := m.Called(url)
+	return args.String(0), args.Error(1)
+}
+
+func TestCbrRates_GetSuccess(t *testing.T) {
+	mockedClient := new(mockedHttpClient)
+
+	// Мокаем успешный вызов
+	mockedClient.
+		On("Get", "https://fake_url").
+		Return("text", nil)
+
+	rates := CbrRates{httpClient: mockedClient}
+	result, err := rates.Get()
+	assert.NoError(t, err)
+	assert.Equal(t, "text", result)
+}
+
+func TestCbrRates_GetFail(t *testing.T) {
+	mockedClient := new(mockedHttpClient)
+
+	// Мокаем вызов с ошибкой
+	mockedClient.
+		On("Get", "https://fake_url").
+		Return("", errors.New("some error"))
+
+	rates := CbrRates{httpClient: mockedClient}
+	result, err := rates.Get()
+	assert.Error(t, err)
+	assert.Equal(t, "", result)
+}
