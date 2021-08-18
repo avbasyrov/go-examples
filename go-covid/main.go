@@ -17,12 +17,22 @@ func NewPhizer() *Vaccine {
 	return &Vaccine{probability: 0.04}
 }
 
+type People interface {
+	ApplyVaccine(v VaccineInterface)
+	DiseaseProbability() float64
+}
 type Human struct {
 	appliedVaccine VaccineInterface // какую вакцину поставили
 }
 
 func (h *Human) ApplyVaccine(v VaccineInterface) {
 	h.appliedVaccine = v
+}
+func (h *Human) DiseaseProbability() float64 {
+	if h.appliedVaccine == nil {
+		return 1
+	}
+	return h.appliedVaccine.DiseaseProbability()
 }
 
 func main() {

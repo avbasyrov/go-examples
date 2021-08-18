@@ -22,3 +22,17 @@ func TestHuman_ApplyVaccine(t *testing.T) {
 	assert.Equal(t, phizer, John.appliedVaccine)
 	assert.Equal(t, 0.04, John.appliedVaccine.DiseaseProbability())
 }
+
+type mockVaccine struct{}
+
+func (m *mockVaccine) DiseaseProbability() float64 {
+	return 0.5
+}
+
+func TestHuman_DiseaseProbability(t *testing.T) {
+	mockedVaccine := &mockVaccine{}
+	John := Human{}
+	John.ApplyVaccine(mockedVaccine)
+
+	assert.Equal(t, 0.5, John.DiseaseProbability())
+}
