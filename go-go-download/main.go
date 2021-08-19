@@ -17,7 +17,7 @@ func main() {
 }
 
 func downloadBigFile(fileNum int) {
-	// Случайная задержка от 1 до 2 секунд
+	// Случайная задержка от 0 до 1 секунды
 	time.Sleep(time.Millisecond * time.Duration(rand.Intn(1000)))
 	fmt.Println("Файл", fileNum, "загружен")
 }
