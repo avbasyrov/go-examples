@@ -15,6 +15,7 @@ func (f *FakeItem) Cost() (float32, error) {
 	return 0, nil
 }
 func NewTestItem(amount int, price float32) PortfolioCost {
+	// Пока нет кода - используем временную заглушку
 	return &FakeItem{Amount: amount, Price: price}
 }
 
