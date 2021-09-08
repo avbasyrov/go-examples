@@ -20,7 +20,7 @@ func (r *Rest) get(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	w.WriteHeader(200) // Отдаем ответ 200 OK
+	w.WriteHeader(http.StatusOK) // Отдаем ответ 200 OK
 
 	_, _ = fmt.Fprintf(w, "name: %s, phone: %s", phone.Name, phone.Number)
 }

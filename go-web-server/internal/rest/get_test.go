@@ -38,16 +38,13 @@ func TestGetWrongMethod(t *testing.T) {
 
 	// Создаем новый HTTP-запрос с методом GET к урлу /phone с пустым телом запроса
 	req, err := http.NewRequest("POST", "/phone/111", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	// Создаем ResponseRecorder для записи ответа сервера
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(server.get)
 
-	// Вызываем напрямую обработчик нашего сервера с запросом req
-	handler.ServeHTTP(rr, req)
+	// Делаем запрос к нашему серверу
+	server.ServeHTTP(rr, req)
 
 	// Проверяем код ответа сервера
 	assert.Equal(t, http.StatusMethodNotAllowed, rr.Code)

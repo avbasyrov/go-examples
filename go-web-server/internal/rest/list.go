@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-func (r *Rest) list(w http.ResponseWriter, request *http.Request) {
+func (r *Rest) list(w http.ResponseWriter, _ *http.Request) {
 	// Отдаем ответ 200 OK
-	w.WriteHeader(200)
+	w.WriteHeader(http.StatusOK)
 
 	phones := r.storage.List()
 	for _, phone := range phones {

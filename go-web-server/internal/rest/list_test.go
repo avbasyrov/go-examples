@@ -36,18 +36,15 @@ func TestListWrongMethod(t *testing.T) {
 	storage := newFakeStorage()
 	server := New(storage)
 
-	// Создаем новый HTTP-запрос с методом GET к урлу /list с пустым телом запроса
-	req, err := http.NewRequest("POST", "/list", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	// Создаем новый HTTP-запрос с методом PUT к урлу /list с пустым телом запроса
+	req, err := http.NewRequest("PUT", "/list", nil)
+	require.NoError(t, err)
 
 	// Создаем ResponseRecorder для записи ответа сервера
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(server.list)
 
-	// Вызываем напрямую обработчик нашего сервера с запросом req
-	handler.ServeHTTP(rr, req)
+	// Делаем запрос к нашему серверу
+	server.ServeHTTP(rr, req)
 
 	// Проверяем код ответа сервера
 	assert.Equal(t, http.StatusMethodNotAllowed, rr.Code)
