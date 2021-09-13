@@ -43,7 +43,7 @@ var queryType = graphql.NewObject(
 		Name: "Query",
 		Fields: graphql.Fields{
 			/* Get (read) single phone by number
-			   http://localhost:8080/phone?query={check(number:"74212340077"){name,number}}
+			   http://localhost:8080/phone?query={check(number:"74212340077"){name}}
 			*/
 			"check": &graphql.Field{
 				Type:        phoneType,

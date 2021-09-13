@@ -31,6 +31,29 @@ func TestGetSuccess(t *testing.T) {
 	assert.Equal(t, expected, rr.Body.String())
 }
 
+func TestGetNotFound(t *testing.T) {
+	// Создаем наш веб-сервер с фейковым хранилищем
+	storage := newFakeStorage()
+	server := New(storage)
+
+	// Создаем новый HTTP-запрос с методом GET к урлу /phone/3333 с пустым телом запроса
+	req, err := http.NewRequest("GET", "/phone/3333", nil)
+	require.NoError(t, err)
+
+	// Создаем ResponseRecorder для записи ответа сервера
+	rr := httptest.NewRecorder()
+
+	// Делаем запрос к нашему серверу
+	server.ServeHTTP(rr, req)
+
+	// Проверяем код ответа сервера
+	assert.Equal(t, http.StatusNotFound, rr.Code)
+
+	// Проверяем содержимое ответа
+	expected := "Not found"
+	assert.Equal(t, expected, rr.Body.String())
+}
+
 func TestGetWrongMethod(t *testing.T) {
 	// Создаем наш веб-сервер с фейковым хранилищем
 	storage := newFakeStorage()
