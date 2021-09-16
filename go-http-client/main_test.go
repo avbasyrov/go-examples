@@ -21,7 +21,7 @@ func TestCbrRates_GetSuccess(t *testing.T) {
 
 	// Мокаем успешный вызов
 	mockedClient.
-		On("Get", "https://fake_url").
+		On("Get", "https://www.cbr.ru/scripts/XML_daily.asp").
 		Return("text", nil)
 
 	rates := CbrRates{httpClient: mockedClient}
@@ -35,7 +35,7 @@ func TestCbrRates_GetFail(t *testing.T) {
 
 	// Мокаем вызов с ошибкой
 	mockedClient.
-		On("Get", "https://fake_url").
+		On("Get", "https://www.cbr.ru/scripts/XML_daily.asp").
 		Return("", errors.New("some error"))
 
 	rates := CbrRates{httpClient: mockedClient}
