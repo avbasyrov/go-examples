@@ -59,7 +59,7 @@ func (s *Storage) SelectStudentsByName(name string) ([]Student, error) {
 	ctx, cancel := context.WithTimeout(s.ctx, s.timeout)
 	defer cancel()
 
-	rows, err := s.db.QueryContext(ctx, "SELECT name, surname, age FROM school.students WHERE name=$1", name)
+	rows, err := s.db.QueryContext(ctx, "SELECT age, name, surname FROM school.students WHERE name=$1", name)
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +69,7 @@ func (s *Storage) SelectStudentsByName(name string) ([]Student, error) {
 	for rows.Next() {
 		student := Student{}
 
-		if err := rows.Scan(&student.Name, &student.Surname, &student.Age); err != nil {
+		if err := rows.Scan(&student.Age, &student.Name, &student.Surname); err != nil {
 			return nil, err
 		}
 		students = append(students, student)

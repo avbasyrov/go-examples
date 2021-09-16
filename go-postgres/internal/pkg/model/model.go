@@ -1,4 +1,4 @@
-package repository
+package model
 
 import "go-examples/go-postgres/internal/pkg/storage"
 

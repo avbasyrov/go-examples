@@ -12,7 +12,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = s.AddStudent("Victor", "surname", 23)
+	err = s.AddStudent("Victor", "--------------", 24)
 	if err != nil {
 		log.Fatal(err)
 	}

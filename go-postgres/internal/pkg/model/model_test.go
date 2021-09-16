@@ -1,4 +1,4 @@
-package repository
+package model
 
 import (
 	"database/sql"
@@ -18,8 +18,6 @@ func TestLogic_CreateAndSelectStudent(t *testing.T) {
 	defer s.Close()
 
 	l := New(s)
-
-	//mock.ExpectationsWereMet()
 
 	queryInsert := regexp.QuoteMeta("INSERT INTO school.students(name, surname, age) VALUES ($1, $2, $3)")
 	mock.ExpectExec(queryInsert).
