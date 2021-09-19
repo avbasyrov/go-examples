@@ -1,4 +1,4 @@
-package main
+package main // go-metrics
 
 import (
 	"flag"
