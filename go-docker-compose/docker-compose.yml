@@ -4,6 +4,8 @@ services:
     build: .
     networks:
       - my_network
+    depends_on:
+      - redis
 
   redis:
     container_name: my-redis-container
